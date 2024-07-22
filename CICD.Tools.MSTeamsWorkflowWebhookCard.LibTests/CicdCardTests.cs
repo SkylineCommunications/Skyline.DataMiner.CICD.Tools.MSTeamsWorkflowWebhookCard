@@ -1,82 +1,93 @@
-﻿namespace Skyline.DataMiner.CICD.Tools.MSTeamsWorkflowWebhookCard.Lib.Tests
+﻿namespace CICD.Tools.MSTeamsWorkflowWebhookCard.LibTests
 {
-	using System.Text;
+    using System.Net.Http;
+    using System.Text;
+    using System.Threading.Tasks;
 
-	using Microsoft.Extensions.Logging;
-	using Microsoft.VisualStudio.TestTools.UnitTesting;
+    using CICD.Tools.MSTeamsWorkflowWebhookCard.LibTests.MatchTeamsRequirement;
 
-	using RichardSzalay.MockHttp;
+    using Microsoft.Extensions.Logging;
+    using Microsoft.VisualStudio.TestTools.UnitTesting;
 
-	using Serilog;
+    using RichardSzalay.MockHttp;
 
-	[TestClass()]
-	public class CicdCardTests
-	{
-		[TestMethod()]
-		public async Task SendAsyncTest_TestFormatIsValidForTeams()
-		{
-			// Arrange
-			var mockHttp = new MockHttpMessageHandler();
+    using Serilog;
 
-			var logConfig = new LoggerConfiguration().WriteTo.Console();
-			logConfig.MinimumLevel.Is(Serilog.Events.LogEventLevel.Debug);
-			var seriLog = logConfig.CreateLogger();
+    using Skyline.DataMiner.CICD.Tools.MSTeamsWorkflowWebhookCard.Lib;
 
-			using var loggerFactory = LoggerFactory.Create(builder => builder.AddSerilog(seriLog));
-			var logger = loggerFactory.CreateLogger("Skyline.DataMiner.CICD.Tools.MSTeamsWorkflowWebhookCard");
+    [TestClass]
+    public class CicdCardTests
+    {
+        [TestMethod]
+        public async Task SendAsyncTest_TestFormatIsValidForTeams()
+        {
+            // Arrange
+            var mockHttp = new MockHttpMessageHandler();
 
-			string name = "TestPipeline";
-			CicdResult result = CicdResult.Success;
-			string details = "Some Details";
-			string pathToBuild = "https://skyline.be/skyline/about";
-			string iconOfService = "https://skyline.be/skylicons/duotone/SkylineLogo_Duo_Light.png";
-			string url = "https://skyline.be/";
+            var logConfig = new LoggerConfiguration().WriteTo.Console();
+            logConfig.MinimumLevel.Is(Serilog.Events.LogEventLevel.Debug);
+            var seriLog = logConfig.CreateLogger();
 
-			var matcher = new TeamsAdaptiveCardMatcher(logger);
-			var responseContent = new StringContent("OK", Encoding.UTF8, "application/string");
-			mockHttp.When(HttpMethod.Post, url).With(matcher).Respond(System.Net.HttpStatusCode.OK, responseContent);
+            using (var loggerFactory = LoggerFactory.Create(builder => builder.AddSerilog(seriLog)))
+            {
+                var logger = loggerFactory.CreateLogger("Skyline.DataMiner.CICD.Tools.MSTeamsWorkflowWebhookCard");
 
-			using var client = mockHttp.ToHttpClient();
+                const string name = "TestPipeline";
+                const CicdResult result = CicdResult.Success;
+                const string details = "Some Details";
+                const string pathToBuild = "https://skyline.be/skyline/about";
+                const string iconOfService = "https://skyline.be/skylicons/duotone/SkylineLogo_Duo_Light.png";
+                const string url = "https://skyline.be/";
 
-			// Act
-			var card = new CicdCard(logger, client);
-			card.ApplyConfiguration(name, result, details, pathToBuild, iconOfService);
-			await card.SendAsync(url);
+                var matcher = new TeamsAdaptiveCardMatcher(logger);
+                var responseContent = new StringContent("OK", Encoding.UTF8, "application/string");
+                mockHttp.When(HttpMethod.Post, url).With(matcher).Respond(System.Net.HttpStatusCode.OK, responseContent);
 
-			// Assert
-			mockHttp.VerifyNoOutstandingExpectation();
-		}
+                using (var client = mockHttp.ToHttpClient())
+                {
+                    // Act
+                    var card = new CicdCard(logger, client);
+                    card.ApplyConfiguration(name, result, details, pathToBuild, iconOfService);
+                    await card.SendAsync(url);
 
+                    // Assert
+                    mockHttp.VerifyNoOutstandingExpectation();
+                }
+            }
+        }
 
-		[TestMethod(), Ignore]
-		public async Task SendAsyncTest_IntegrationTest()
-		{
-			// Arrange
-			var logConfig = new LoggerConfiguration().WriteTo.Console();
-			logConfig.MinimumLevel.Is(Serilog.Events.LogEventLevel.Debug);
-			var seriLog = logConfig.CreateLogger();
+        [TestMethod, Ignore]
+        public async Task SendAsyncTest_IntegrationTest()
+        {
+            // Arrange
+            var logConfig = new LoggerConfiguration().WriteTo.Console();
+            logConfig.MinimumLevel.Is(Serilog.Events.LogEventLevel.Debug);
+            var seriLog = logConfig.CreateLogger();
 
-			using var loggerFactory = LoggerFactory.Create(builder => builder.AddSerilog(seriLog));
-			var logger = loggerFactory.CreateLogger("Skyline.DataMiner.CICD.Tools.MSTeamsWorkflowWebhookCard");
+            using (var loggerFactory = LoggerFactory.Create(builder => builder.AddSerilog(seriLog)))
+            {
+                var logger = loggerFactory.CreateLogger("Skyline.DataMiner.CICD.Tools.MSTeamsWorkflowWebhookCard");
 
-			string name = "IntegrationTestPipeline";
-			CicdResult result = CicdResult.Success;
-			string details = "This is an integration test running from the testbattery. \r\n This should be on a second line!";
-			string pathToBuild = "https://github.com/SkylineCommunications/Skyline.DataMiner.CICD.Tools.MSTeamsWorkflowWebhookCard";
-			string iconOfService = "https://skyline.be/skylicons/duotone/SkylineLogo_Duo_Light.png";
-			string url = "EnterWebHookFromTeamsChannelHere";
+                const string name = "IntegrationTestPipeline";
+                const CicdResult result = CicdResult.Success;
+                const string details = "This is an integration test running from the testbattery. \r\n This should be on a second line!";
+                const string pathToBuild = "https://github.com/SkylineCommunications/Skyline.DataMiner.CICD.Tools.MSTeamsWorkflowWebhookCard";
+                const string iconOfService = "https://skyline.be/skylicons/duotone/SkylineLogo_Duo_Light.png";
+                const string url = "EnterWebHookFromTeamsChannelHere";
 
-			using HttpClient client = new HttpClient();
+                using (HttpClient client = new HttpClient())
+                {
+                    // Act
+                    var card = new CicdCard(logger, client);
+                    card.ApplyConfiguration(name, result, details, pathToBuild, iconOfService);
+                    await card.SendAsync(url);
 
-			// Act
-			var card = new CicdCard(logger, client);
-			card.ApplyConfiguration(name, result, details, pathToBuild, iconOfService);
-			await card.SendAsync(url);
+                    // Assert
 
-			// Assert
-
-			// Manual Verification of content as this is Graphical Design.
-			Assert.IsTrue(true);
-		}
-	}
+                    // Manual Verification of content as this is Graphical Design.
+                    Assert.IsTrue(true);
+                }
+            }
+        }
+    }
 }
