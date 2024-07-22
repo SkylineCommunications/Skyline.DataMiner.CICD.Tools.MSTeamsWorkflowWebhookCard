@@ -1,0 +1,43 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.4.33213.308
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CICD.Tools.MSTeamsWorkflowWebhookCard", "CICD.Tools.MSTeamsWorkflowWebhookCard\CICD.Tools.MSTeamsWorkflowWebhookCard.csproj", "{99D81C1F-9251-4FBF-92E9-21A2AC844C8D}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{EFB39731-1A7C-41CA-BA55-3C2AE52AE1D0}"
+	ProjectSection(SolutionItems) = preProject
+		LICENSE = LICENSE
+		README.md = README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CICD.Tools.MSTeamsWorkflowWebhookCard.Lib", "Skyline.DataMiner.CICD.Tools.MSTeamsWorkflowWebhookCard.Lib\CICD.Tools.MSTeamsWorkflowWebhookCard.Lib.csproj", "{263068D9-49E0-4661-BEC1-51DF97CE8BA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CICD.Tools.MSTeamsWorkflowWebhookCard.LibTests", "CICD.Tools.MSTeamsWorkflowWebhookCard.LibTests\CICD.Tools.MSTeamsWorkflowWebhookCard.LibTests.csproj", "{CBAC6031-4F95-4612-A8A9-EB56947C4C15}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{99D81C1F-9251-4FBF-92E9-21A2AC844C8D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{99D81C1F-9251-4FBF-92E9-21A2AC844C8D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{99D81C1F-9251-4FBF-92E9-21A2AC844C8D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{99D81C1F-9251-4FBF-92E9-21A2AC844C8D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{263068D9-49E0-4661-BEC1-51DF97CE8BA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{263068D9-49E0-4661-BEC1-51DF97CE8BA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{263068D9-49E0-4661-BEC1-51DF97CE8BA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{263068D9-49E0-4661-BEC1-51DF97CE8BA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{CBAC6031-4F95-4612-A8A9-EB56947C4C15}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{CBAC6031-4F95-4612-A8A9-EB56947C4C15}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{CBAC6031-4F95-4612-A8A9-EB56947C4C15}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{CBAC6031-4F95-4612-A8A9-EB56947C4C15}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {F6118163-48FD-4823-92C5-2D50C077F934}
+	EndGlobalSection
+EndGlobal
