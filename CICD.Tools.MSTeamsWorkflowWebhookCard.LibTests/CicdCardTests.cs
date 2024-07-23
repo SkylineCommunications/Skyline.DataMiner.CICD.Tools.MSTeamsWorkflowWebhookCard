@@ -56,7 +56,7 @@
             }
         }
 
-        [TestMethod, Ignore]
+        [TestMethod, Ignore("For Manual Running. Fill in a valid webhook url to a teams workflow.")]
         public async Task SendAsyncTest_IntegrationTest()
         {
             // Arrange
