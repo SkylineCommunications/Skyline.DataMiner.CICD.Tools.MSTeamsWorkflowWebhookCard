@@ -39,11 +39,7 @@
                 IsRequired = false,
             };
 
-            var rootCommand = new RootCommand("Sends an adaptive card to an MS Teams workflow.")
-            {
-                httpPostUrl,
-                isDebug
-            };
+            isDebug.SetDefaultValue(false);
 
             var name = new Option<string>("--name")
             {
@@ -77,13 +73,16 @@
 
             var fromCicd = new Command("from-cicd", "Sends a card formatted as results from a CICD pipeline or workflow.")
             {
+                isDebug,
                 name,
+                httpPostUrl,
                 result,
                 details,
                 pathToBuild,
                 pathToServiceIcon
             };
 
+            var rootCommand = new RootCommand("Sends an adaptive card to an MS Teams workflow.");
             rootCommand.AddCommand(fromCicd);
 
             fromCicd.SetHandler(ProcessFromCicd, isDebug, name, httpPostUrl, result, details, pathToBuild, pathToServiceIcon);

@@ -164,7 +164,7 @@
                 cardElements.Add(new AdaptiveTextBlock
                 {
                     Text = formatedDetails,
-                    Wrap = false,
+                    Wrap = true,
                     IsSubtle = false,
                     Separator = true
                 });
