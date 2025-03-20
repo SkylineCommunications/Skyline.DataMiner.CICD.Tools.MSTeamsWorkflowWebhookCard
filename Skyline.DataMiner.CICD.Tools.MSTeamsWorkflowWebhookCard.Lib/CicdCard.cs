@@ -175,6 +175,7 @@
             }
 
             card.Body = cardElements;
+            card.AdditionalProperties.Add("msteams", new Dictionary<string, string> { { "width", "Full" } });
         }
 
         /// <summary>
